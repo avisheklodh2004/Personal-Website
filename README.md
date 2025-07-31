@@ -1,4 +1,4 @@
-# Peronal Website
+# Personal Website
 
 # Description
 - Personal Website.
