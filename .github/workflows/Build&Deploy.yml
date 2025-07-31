@@ -25,5 +25,5 @@ jobs:
           entryPoint: "Source Code/website"
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PERSONAL_WEBSITE37 }}"
-          projectId: personal-website37
+          projectId: personal-website--avishek-lodh
           channelId: live
