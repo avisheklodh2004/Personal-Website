@@ -23,7 +23,9 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           entryPoint: "Source Code/website"
-          repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PERSONAL_WEBSITE37 }}"
-          projectId: personal-website--avishek-lodh
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{
+            secrets.FIREBASE_SERVICE_ACCOUNT_PERSONAL_WEBSITE__AVISHEK_LODH }}
           channelId: live
+          projectId: personal-website--avishek-lodh
+
