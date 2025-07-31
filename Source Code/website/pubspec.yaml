@@ -1,0 +1,35 @@
+name: personal_website
+description: Personal Website
+
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  scrollable_positioned_list: ^0.3.8
+  font_awesome_flutter: ^10.8.0
+  auto_size_text: ^3.0.0
+  fluttertoast: ^8.2.12
+  url_launcher: ^6.3.1
+  google_fonts: ^6.2.1
+  get: ^4.7.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - "assets/images/"
+    - "assets/projects/"
+    - "assets/work/"
+    - "assets/awards/"
