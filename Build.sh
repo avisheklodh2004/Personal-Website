@@ -1,1 +1,0 @@
-cd Source\ Code/website/ && flutter build web --release && firebase deploy
