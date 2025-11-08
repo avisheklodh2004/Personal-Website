@@ -158,10 +158,10 @@ export function Contact() {
                       boxShadow: '0 0 10px rgba(168, 85, 247, 0.8)',
                     }}
                   />
-                  <span className="text-primary">Available for Work</span>
+                  <span className="text-primary">Available to Work</span>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  Currently open to internship opportunities
+                  Currently open for internship opportunities
                 </p>
               </div>
             </motion.div>
