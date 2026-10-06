@@ -49,14 +49,14 @@ export const TOUR: TourStop[] = [
     piece: "B",
     id: "skills",
     label: "Skills",
-    blurb: "Long diagonals across the stack, from TypeScript to computer vision.",
+    blurb: "Long diagonals across the stack, from patch management to Python and computer vision.",
   },
   {
     ply: 6,
     piece: "R",
     id: "experience",
     label: "Experience",
-    blurb: "Castled and steady: ambassador roles at ASU, research and IT work before that.",
+    blurb: "Castled and steady: IT work at the Fulton Schools, plus leadership and ambassador roles at ASU.",
   },
   {
     ply: 8,

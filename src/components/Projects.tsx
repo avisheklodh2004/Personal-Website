@@ -7,27 +7,27 @@ import scantapsImage from "asset:scantaps.png";
 const projects = [
   {
     name: "ScanTaps",
-    tagline: "ASU lost and found system",
+    tagline: "Secure lost and found system · Engineering EPICS, ASU",
     description:
-      "As design lead, built a hybrid NFC and QR lost-and-found system to modernize ASU's item recovery. A Progressive Web App with ASU SSO, encrypted chat and a Firebase backend supporting 1,000+ tags.",
+      "Led design and development of a hybrid NFC and QR lost-and-found Progressive Web App with ASU SSO and encrypted chat between finders and owners. The prototype supports 1,000+ tags with offline caching and real-time Firebase updates, built with ASU Lost & Found staff to meet accessibility and data-privacy requirements.",
     image: scantapsImage,
-    tags: ["React", "Firebase", "NFC", "QR Code", "PWA", "ASU SSO"],
+    tags: ["Firebase", "PWA", "ASU SSO", "NFC", "QR Code", "React"],
   },
   {
     name: "OutDrobe",
-    tagline: "AI-powered personal stylist",
+    tagline: "AI-powered personal stylist · Cal Hacks 2025",
     description:
-      "A voice-driven stylist that scans your wardrobe, generates outfits and suggests affordable matching items. Speech by Fish Audio, vision tagging with Google Cloud Vision and BLIP, and a Three.js dashboard.",
+      "A voice-integrated AI stylist that generates personalized outfits, combining speech recognition from Fish Audio with image tagging from Google Cloud Vision and BLIP, in a Three.js dashboard.",
     image: outdrobeImage,
     tags: ["TypeScript", "Three.js", "Google Cloud Vision", "Fish Audio", "BLIP"],
   },
   {
     name: "FitStack",
-    tagline: "Real-time gym insights",
+    tagline: "Real-time gym occupancy tracker · SunHacks 2025",
     description:
-      "Live gym occupancy from camera-based motion detection, without storing personal data. An Angular frontend with live analytics that suggests the best time to work out.",
+      "A privacy-conscious occupancy tracker using camera-based motion detection with no personal data stored, plus an Angular dashboard that recommends the best times to work out.",
     image: fitstackImage,
-    tags: ["Angular", "Motion Detection", "Real-Time Analytics", "Privacy-Focused"],
+    tags: ["Angular", "Computer Vision", "Motion Detection", "Privacy-Focused"],
   },
 ];
 
@@ -39,7 +39,7 @@ export function Projects() {
           piece="N"
           move="2. Nf3"
           title="Projects"
-          lede="Things I've designed and shipped, from campus infrastructure to AI side projects."
+          lede="Things I've designed and built, from campus infrastructure to hackathon projects."
         />
         <div className="projects">
           {projects.map((p, i) => (
