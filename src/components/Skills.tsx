@@ -1,17 +1,26 @@
 import { Reveal, SectionHead } from "./Reveal";
 
 const groups = [
-  { name: "Languages", items: ["TypeScript", "JavaScript", "Python", "Java", "HTML", "CSS"] },
-  { name: "Frameworks", items: ["React", "Angular", "Three.js", "Progressive Web Apps"] },
-  { name: "Platforms and AI", items: ["Firebase", "Google Cloud Vision", "BLIP", "Fish Audio", "NFC and QR", "Git"] },
-  { name: "Design and tools", items: ["Figma", "Canva", "Google Workspace", "Microsoft Office"] },
+  {
+    name: "Security and IT",
+    items: ["Vulnerability remediation", "Patch management", "Endpoint provisioning", "OS imaging", "Active Directory", "ServiceNow"],
+  },
+  { name: "Languages", items: ["Python", "Bash", "SQL", "Java", "TypeScript", "JavaScript", "HTML and CSS"] },
+  {
+    name: "Cloud and tools",
+    items: ["Google Cloud Vision", "Firebase", "React", "Angular", "Git", "Windows, macOS, Linux"],
+  },
+  {
+    name: "Training (pwn.college)",
+    items: ["Web exploitation", "Network interception", "Cryptography", "Reverse engineering", "Binary exploitation", "Linux Luminarium", "CTF Archive"],
+  },
 ];
 
 export function Skills() {
   return (
     <section className="section" id="skills">
       <div className="container">
-        <SectionHead piece="B" move="3. Bc4" title="Skills" lede="The tools I reach for, grouped by where they sit in the stack." />
+        <SectionHead piece="B" move="3. Bc4" title="Skills" lede="What I use day to day in IT and security work, and what I build with." />
         <Reveal className="skills">
           {groups.map((g) => (
             <div key={g.name} className="skills__group">

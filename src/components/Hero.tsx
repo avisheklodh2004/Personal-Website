@@ -22,8 +22,8 @@ export function Hero() {
           </motion.p>
           <motion.h1 {...rise(0.06)}>I write code that (usually) works.</motion.h1>
           <motion.p className="hero__sub" {...rise(0.12)}>
-            Full-stack developer and Computer Science student at Arizona State. Every piece on the board opens a part of
-            my work.
+            Computer Science student at Arizona State working in IT and security, and building full-stack apps on the
+            side. Every piece on the board opens a part of my work.
           </motion.p>
           <motion.div className="hero__ctas" {...rise(0.18)}>
             <a className="btn btn--primary" href="#projects">

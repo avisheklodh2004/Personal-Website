@@ -2,47 +2,42 @@ import { Reveal, SectionHead } from "./Reveal";
 
 const roles = [
   {
+    title: "ETS Unified IT Aide",
+    org: "Ira A. Fulton Schools of Engineering, Arizona State University",
+    period: "Jun 2026 - Present",
+    points: [
+      "Remediated 50+ endpoint vulnerability reports for the School for Engineering of Matter, Transport and Energy, resolving critical and high-severity findings through patching, upgrades and removing unsupported software.",
+      "Provision and configure endpoints end to end: OS imaging, system configuration, Active Directory domain joins and workstation setup.",
+      "Diagnose and resolve hardware, software, network and account-access tickets for faculty and staff in ServiceNow, through to closure.",
+      "Work with the IT team on process improvements that make campus IT services faster and more reliable.",
+    ],
+  },
+  {
+    title: "Lead Ambassador, Barrett Summer Scholars & RISE",
+    org: "Access ASU, EOSS Campus Experience",
+    period: "May 2026 - Jun 2026",
+    points: [
+      "Supervised a team of 25+ ambassadors and coordinated daily operations with ASU staff for 400+ high-achieving K-12 students.",
+      "Primary point of contact for ambassadors and participants, resolving issues and keeping academic and residential settings safe and inclusive.",
+    ],
+  },
+  {
+    title: "Industry Representative",
+    org: "Software Developers Association, Arizona State University",
+    period: "Jan 2025 - Present",
+    summary: "Also Event Coordinator from Dec 2025 to May 2026.",
+    points: [
+      "Secured corporate sponsorships from State Farm and ReliaQuest, expanding club funding and event reach.",
+      "Planned hackathons, workshops and speaker sessions with industry leaders including State Farm and Amazon.",
+    ],
+  },
+  {
     title: "Campus Experience Ambassador",
     org: "Access ASU",
-    period: "Aug 2025 - Present",
+    period: "Aug 2025 - Jun 2026",
     points: [
-      "Communicate university resources and admissions processes to prospective students.",
-      "Help coordinate events and check-in for prospective student visits.",
+      "Delivered 200+ tours and presentations to prospective students and families, explaining university resources and admissions to non-technical audiences.",
     ],
-  },
-  {
-    title: "Barrett Summer Scholars Ambassador",
-    org: "ASU EOSS Campus Experience, Access ASU",
-    period: "May 2025 - Jun 2025",
-    summary: "Facilitated academic and enrichment activities for high-achieving K-12 students.",
-    points: [
-      "Supervised students in residential, academic and recreational settings.",
-      "Worked with a diverse team to run a seamless camp experience.",
-    ],
-  },
-  {
-    title: "Research Intern",
-    org: "BRAC James P Grant School of Public Health, BRAC University",
-    period: "Jun 2023 - Jun 2024",
-    summary: "Gathered and synthesized research to support public health arguments and claims.",
-    points: ["Applied research methods using credible sources.", "Ran literature reviews and presented complex ideas clearly."],
-  },
-  {
-    title: "IT Officer",
-    org: "Studybooth, Dhaka",
-    period: "Jul 2021 - Oct 2023",
-    summary: "Managed and implemented major IT improvement programs.",
-    points: [
-      "Analyzed customer network requirements and delivered targeted solutions.",
-      "Developed educational content for students across subjects.",
-    ],
-  },
-  {
-    title: "Volunteer",
-    org: "Jiban-Tori Foundation",
-    period: "May 2020 - Jun 2024",
-    summary: "Organized a Chess for Charity tournament and a Winter Warmth donation drive, 20 hours a week.",
-    points: ["Managed community events and facility setup.", "Trained in volunteer roles and organizational goals."],
   },
 ];
 
@@ -50,7 +45,7 @@ export function Experience() {
   return (
     <section className="section" id="experience">
       <div className="container">
-        <SectionHead piece="R" move="4. O-O" title="Experience" lede="Work, research and community roles, most recent first." />
+        <SectionHead piece="R" move="4. O-O" title="Experience" lede="IT, leadership and campus roles, most recent first." />
         <ol className="roles">
           {roles.map((r, i) => (
             <Reveal as="li" key={r.title} delay={i * 0.04} className="role">
