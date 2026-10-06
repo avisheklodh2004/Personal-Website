@@ -1,67 +1,45 @@
-import { motion } from "motion/react";
-import { Code2, Rocket, Users } from "lucide-react";
-import { SpaceBackground } from "./SpaceBackground";
+import { Reveal, SectionHead } from "./Reveal";
+
+const facts = [
+  {
+    term: "Studying",
+    detail: "B.S. Computer Science (Software Engineering), Arizona State University. Expected May 2028.",
+  },
+  { term: "Record", detail: "4.00 GPA, Dean's List." },
+  { term: "Before ASU", detail: "Edexcel IAL Award, Sir John Wilson School, Dhaka. Graduated May 2024." },
+  { term: "Building with", detail: "React, Angular, TypeScript and Firebase, plus vision and speech APIs." },
+  { term: "Community", detail: "Campus Ambassador at ASU, and four years volunteering with Jiban-Tori Foundation." },
+  { term: "Speaks", detail: "English and Bangla." },
+];
 
 export function About() {
-  const highlights = [
-    {
-      icon: Code2,
-      title: "Full-Stack Developer",
-      description: "Experienced in React, Angular, TypeScript, and Firebase for building scalable web applications.",
-    },
-    {
-      icon: Rocket,
-      title: "Innovation Driven",
-      description: "Creator of AI-powered solutions combining vision, speech, and reasoning technologies.",
-    },
-    {
-      icon: Users,
-      title: "Community Leader",
-      description: "Campus Ambassador at ASU and 4+ years volunteering with Jiban-Tori Foundation.",
-    },
-  ];
-
   return (
-    <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden" id="about">
-      <SpaceBackground />
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto"
-        >
-          <h2 className="text-center mb-12">About Me</h2>
-          
-          <div className="space-y-6 mb-12">
-            <p className="text-muted-foreground text-lg text-center">
-              Hey, I'm Avishek Lodh — a Computer Science student at Arizona State University who's endlessly curious about how people and technology connect. I'm drawn to the creative side of tech — the part where design, storytelling, and problem-solving come together to make something that actually feels human.
+    <section className="section" id="about">
+      <div className="container">
+        <SectionHead piece="P" move="1. e4" title="About" />
+        <div className="about">
+          <Reveal className="about__text">
+            <p className="about__lead">
+              I'm a Computer Science student at Arizona State University who's endlessly curious about how people and
+              technology connect.
             </p>
-            <p className="text-muted-foreground text-lg text-center">
-              Beyond the screen you'll probably find me at a concert, out on a trail, or chasing sunsets with a camera in hand.
+            <p>
+              I'm drawn to the creative side of tech: the part where design, storytelling and problem-solving come
+              together to make something that actually feels human.
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {highlights.map((item, index) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-card border-2 border-primary/30 rounded-lg p-6 text-center glow-hover"
-              >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary/20 border border-primary/50 mb-4">
-                  <item.icon className="h-6 w-6 text-primary" />
+            <p>Beyond the screen you'll probably find me at a concert, out on a trail, or chasing sunsets with a camera in hand.</p>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <dl className="facts">
+              {facts.map((f) => (
+                <div key={f.term} className="facts__row">
+                  <dt>{f.term}</dt>
+                  <dd>{f.detail}</dd>
                 </div>
-                <h3 className="mb-2">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+              ))}
+            </dl>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
