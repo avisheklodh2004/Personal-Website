@@ -368,6 +368,24 @@ button {
   align-items: center;
   gap: 48px;
 }
+.hero__copy > * {
+  animation: heroRise 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero__copy > :nth-child(2) {
+  animation-delay: 60ms;
+}
+.hero__copy > :nth-child(3) {
+  animation-delay: 120ms;
+}
+.hero__copy > :nth-child(4) {
+  animation-delay: 180ms;
+}
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
 .hero__name {
   font-family: var(--font-mono);
   font-size: 13px;

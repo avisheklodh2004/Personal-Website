@@ -79,7 +79,7 @@ out
 
 # Gatsby files
 .cache/
-public
+# public (Gatsby output) is not ignored: Vite copies public/ into the build.
 
 # Serverless directories
 .serverless/
@@ -107,4 +107,4 @@ Desktop.ini
 # Lock files (optional - comment out if you want to commit them)
 # package-lock.json
 # yarn.lock
-# pnpm-lock.yaml
+# pnpm-lock.yaml/build-ssr

@@ -8,10 +8,10 @@ export default defineConfig({
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
-      'asset:outdrobe.png': path.resolve(__dirname, './src/assets/outdrobe.png'),
+      'asset:outdrobe.webp': path.resolve(__dirname, './src/assets/outdrobe.webp'),
       'asset:logo.png': path.resolve(__dirname, './src/assets/logo.png'),
-      'asset:fitstack.png': path.resolve(__dirname, './src/assets/fitstack.png'),
-      'asset:scantaps.png': path.resolve(__dirname, './src/assets/scantaps.png'),
+      'asset:fitstack.webp': path.resolve(__dirname, './src/assets/fitstack.webp'),
+      'asset:scantaps.webp': path.resolve(__dirname, './src/assets/scantaps.webp'),
       '@': path.resolve(__dirname, './src'),
     },
   },

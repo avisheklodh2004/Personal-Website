@@ -4,35 +4,28 @@ import { BoardPanel } from "./chess/BoardPanel";
 
 export function Hero() {
   const reduce = useReducedMotion();
-  const rise = (delay: number) =>
-    reduce
-      ? {}
-      : {
-          initial: { opacity: 0, y: 14 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] as const },
-        };
 
+  // The copy fades in with CSS (see .hero__copy) so it shows before the script loads.
   return (
     <section className="hero" id="top">
       <div className="hero__inner">
         <div className="hero__copy">
-          <motion.p className="hero__name" {...rise(0)}>
+          <p className="hero__name">
             Avishek Lodh <span>/ˈɑː-vɪ-ʃɛk/</span>
-          </motion.p>
-          <motion.h1 {...rise(0.06)}>I write code that (usually) works.</motion.h1>
-          <motion.p className="hero__sub" {...rise(0.12)}>
+          </p>
+          <h1>I write code that (usually) works.</h1>
+          <p className="hero__sub">
             Computer Science student at Arizona State working in IT and security, and building full-stack apps on the
             side. Every piece on the board opens a part of my work.
-          </motion.p>
-          <motion.div className="hero__ctas" {...rise(0.18)}>
+          </p>
+          <div className="hero__ctas">
             <a className="btn btn--primary" href="#projects">
               View projects <ArrowRight size={15} strokeWidth={1.75} />
             </a>
             <a className="btn btn--secondary" href="#contact">
               Get in touch
             </a>
-          </motion.div>
+          </div>
         </div>
 
         <motion.div
