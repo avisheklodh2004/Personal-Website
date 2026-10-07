@@ -10,10 +10,10 @@ export function Hero() {
     <section className="hero" id="top">
       <div className="hero__inner">
         <div className="hero__copy">
-          <p className="hero__name">
-            Avishek Lodh <span>/ˈɑː-vɪ-ʃɛk/</span>
-          </p>
-          <h1>I write code that (usually) works.</h1>
+          <div className="hero__name">
+            <h1>Avishek Lodh</h1> <span>/ˈɑː-vɪ-ʃɛk/</span>
+          </div>
+          <p className="hero__title">I write code that (usually) works.</p>
           <p className="hero__sub">
             Computer Science student at Arizona State working in IT and security, and building full-stack apps on the
             side. Every piece on the board opens a part of my work.

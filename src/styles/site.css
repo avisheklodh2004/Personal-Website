@@ -392,11 +392,15 @@ button {
   color: var(--ink-subtle);
   margin-bottom: 20px;
 }
+.hero__name h1 {
+  display: inline;
+  font: inherit;
+}
 .hero__name span {
   color: var(--ink-tertiary);
   margin-left: 6px;
 }
-.hero h1 {
+.hero__title {
   font-size: clamp(40px, 5.2vw, 64px);
   line-height: 1.04;
   font-weight: 600;
