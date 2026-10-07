@@ -6,15 +6,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Avishek Lodh · Software Developer</title>
   <meta name="description" content="Avishek Lodh is a Computer Science student at Arizona State University working in IT and security and building full-stack apps. Explore projects, skills and experience on an interactive chess board." />
+  <meta name="author" content="Avishek Lodh" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://avisheklodh.com/" />
   <meta name="theme-color" content="#08090a" />
-  <meta property="og:type" content="website" />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://avisheklodh.com/" />
+  <meta property="og:site_name" content="Avishek Lodh" />
   <meta property="og:title" content="Avishek Lodh · Software Developer" />
   <meta property="og:description" content="CS student at Arizona State working in IT and security. Every piece on the board opens a part of my work." />
+  <meta property="profile:first_name" content="Avishek" />
+  <meta property="profile:last_name" content="Lodh" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Avishek Lodh · Software Developer" />
+  <meta name="twitter:description" content="CS student at Arizona State working in IT and security. Every piece on the board opens a part of my work." />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231b1c1f'/><text x='16' y='24' font-size='22' text-anchor='middle' fill='%23f7f8f8'>&#9822;</text></svg>" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://avisheklodh.com/#website",
+          "url": "https://avisheklodh.com/",
+          "name": "Avishek Lodh",
+          "author": { "@id": "https://avisheklodh.com/#person" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://avisheklodh.com/#profile",
+          "url": "https://avisheklodh.com/",
+          "name": "Avishek Lodh · Software Developer",
+          "isPartOf": { "@id": "https://avisheklodh.com/#website" },
+          "mainEntity": { "@id": "https://avisheklodh.com/#person" }
+        },
+        {
+          "@type": "Person",
+          "@id": "https://avisheklodh.com/#person",
+          "name": "Avishek Lodh",
+          "url": "https://avisheklodh.com/",
+          "jobTitle": "ETS Unified IT Aide",
+          "description": "Computer Science student at Arizona State University working in IT and security and building full-stack apps.",
+          "email": "mailto:alodh2@asu.edu",
+          "address": { "@type": "PostalAddress", "addressLocality": "Tempe", "addressRegion": "AZ", "addressCountry": "US" },
+          "alumniOf": { "@type": "CollegeOrUniversity", "name": "Arizona State University" },
+          "worksFor": { "@type": "Organization", "name": "Ira A. Fulton Schools of Engineering, Arizona State University" },
+          "knowsAbout": ["Vulnerability remediation", "Endpoint provisioning", "Active Directory", "Python", "TypeScript", "React", "Angular", "Firebase"],
+          "sameAs": ["https://github.com/avisheklodh2004", "https://www.linkedin.com/in/avisheklodh/"]
+        }
+      ]
+    }
+  </script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root"><!--app-html--></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 

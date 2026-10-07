@@ -1,8 +1,8 @@
 import { ArrowUpRight } from "lucide-react";
 import { Reveal, SectionHead } from "./Reveal";
-import fitstackImage from "asset:fitstack.png";
-import outdrobeImage from "asset:outdrobe.png";
-import scantapsImage from "asset:scantaps.png";
+import fitstackImage from "asset:fitstack.webp";
+import outdrobeImage from "asset:outdrobe.webp";
+import scantapsImage from "asset:scantaps.webp";
 
 const projects = [
   {
@@ -11,6 +11,8 @@ const projects = [
     description:
       "Led design and development of a hybrid NFC and QR lost-and-found Progressive Web App with ASU SSO and encrypted chat between finders and owners. The prototype supports 1,000+ tags with offline caching and real-time Firebase updates, built with ASU Lost & Found staff to meet accessibility and data-privacy requirements.",
     image: scantapsImage,
+    alt: "ScanTaps logo, a phone-shaped tag sending a wireless signal",
+    size: [1200, 785],
     tags: ["Firebase", "PWA", "ASU SSO", "NFC", "QR Code", "React"],
   },
   {
@@ -19,6 +21,8 @@ const projects = [
     description:
       "A voice-integrated AI stylist that generates personalized outfits, combining speech recognition from Fish Audio with image tagging from Google Cloud Vision and BLIP, in a Three.js dashboard.",
     image: outdrobeImage,
+    alt: "OutDrobe home page with the tagline Never wonder what to wear and floating clothing items",
+    size: [1200, 553],
     tags: ["TypeScript", "Three.js", "Google Cloud Vision", "Fish Audio", "BLIP"],
   },
   {
@@ -27,6 +31,8 @@ const projects = [
     description:
       "A privacy-conscious occupancy tracker using camera-based motion detection with no personal data stored, plus an Angular dashboard that recommends the best times to work out.",
     image: fitstackImage,
+    alt: "FitStack logo, a map pin with a dumbbell",
+    size: [1200, 946],
     tags: ["Angular", "Computer Vision", "Motion Detection", "Privacy-Focused"],
   },
 ];
@@ -52,7 +58,14 @@ export function Projects() {
                 aria-label={`${p.name} on GitHub`}
               >
                 <div className="project__media">
-                  <img src={p.image} alt={`${p.name} screenshot`} loading="lazy" decoding="async" />
+                  <img
+                    src={p.image}
+                    alt={p.alt}
+                    width={p.size[0]}
+                    height={p.size[1]}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <div className="project__body">
                   <div className="project__title">
