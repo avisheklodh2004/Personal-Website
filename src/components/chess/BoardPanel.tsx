@@ -115,7 +115,7 @@ export function BoardPanel() {
                     </motion.div>
                   ) : (
                     <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                      White to move. Four pieces, four different checkmates. Tap a glowing piece to see what each one stands for.
+                      White to move. Three pieces, three different checkmates. Tap a glowing piece to see what each one stands for.
                     </motion.p>
                   )}
                 </AnimatePresence>

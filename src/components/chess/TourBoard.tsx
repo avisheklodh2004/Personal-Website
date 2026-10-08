@@ -4,7 +4,7 @@ import { BoardFrame, Glyph, PIECE_NAMES, squareToRowCol } from "./Board";
 import { MATED_KING, TOUR, positionAfter } from "./tour";
 
 /**
- * The tour puzzle. White has four mates in one; the pieces that give them are
+ * The tour puzzle. White has three mates in one; the pieces that give them are
  * buttons, and pieces slide between squares as `stop` changes.
  */
 export function TourBoard({ stop, onPlay }: { stop: number; onPlay: (stop: number) => void }) {
@@ -19,7 +19,7 @@ export function TourBoard({ stop, onPlay }: { stop: number; onPlay: (stop: numbe
     <BoardFrame
       highlight={played ? [played.from, played.to] : preview ? [preview.to] : []}
       mate={played ? MATED_KING : undefined}
-      label="Chess puzzle. White has four different checkmates, and each one opens a section of the site."
+      label="Chess puzzle. White has three different checkmates, and each one opens a section of the site."
     >
       <AnimatePresence initial={false}>
         {pieces.map((p) => {

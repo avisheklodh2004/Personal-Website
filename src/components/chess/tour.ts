@@ -5,8 +5,8 @@ export interface TourPiece {
 }
 
 /**
- * White to move (FEN 2R3rk/pp1b2pp/1np1pBQN/q1bp4/2PPNn2/1B2P3/PP1r1PPP/5RK1 w). The c8 rook pins
- * Black's rook to the back rank, so four different pieces each have a mate in one.
+ * White to move (FEN 2R3rk/pp1b2pp/3qpB1N/8/3Q4/4P3/PP3PPP/6K1 w). The c8 rook pins
+ * Black's rook to the back rank, so three different pieces each have a mate in one.
  */
 const PUZZLE: [string, string][] = [
   ["r", "g8"],
@@ -16,29 +16,18 @@ const PUZZLE: [string, string][] = [
   ["b", "d7"],
   ["p", "g7"],
   ["p", "h7"],
-  ["n", "b6"],
-  ["p", "c6"],
+  ["q", "d6"],
   ["p", "e6"],
-  ["q", "a5"],
-  ["b", "c5"],
-  ["p", "d5"],
-  ["n", "f4"],
-  ["r", "d2"],
   ["R", "c8"],
   ["B", "f6"],
-  ["Q", "g6"],
   ["N", "h6"],
-  ["P", "c4"],
-  ["P", "d4"],
-  ["N", "e4"],
-  ["B", "b3"],
+  ["Q", "d4"],
   ["P", "e3"],
   ["P", "a2"],
   ["P", "b2"],
   ["P", "f2"],
   ["P", "g2"],
   ["P", "h2"],
-  ["R", "f1"],
   ["K", "g1"],
 ];
 
@@ -104,17 +93,6 @@ export const TOUR: TourStop[] = [
     id: "experience",
     label: "Experience",
     blurb: "The pinned rook falls and the knight covers g8. IT work at the Fulton Schools, plus ASU leadership roles.",
-  },
-  {
-    san: "Qxg7#",
-    from: "g6",
-    to: "g7",
-    piece: "Q",
-    pattern: "Queen mate",
-    color: "#e5677d",
-    id: "contact",
-    label: "Contact",
-    blurb: "The queen lands next to the king, backed up by the bishop. Open to internships and collaborations.",
   },
 ];
 
