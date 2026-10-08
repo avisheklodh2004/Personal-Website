@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { Glyph } from "./Board";
@@ -15,7 +15,18 @@ export function BoardPanel() {
   const [game, setGame] = useState<GameStatus>({ text: "Your move", thinking: false });
   const [resetKey, setResetKey] = useState(0);
 
-  const choose = (i: number) => setStop(i);
+  const scrollTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  // Play the stop, and after a mate give the board a moment before jumping to its section.
+  const choose = (i: number) => {
+    setStop(i);
+    clearTimeout(scrollTimer.current);
+    if (i >= 0 && TOUR[i].from) {
+      scrollTimer.current = setTimeout(() => document.getElementById(TOUR[i].id)?.scrollIntoView(), 1400);
+    }
+  };
+
+  useEffect(() => () => clearTimeout(scrollTimer.current), []);
 
   const onStatus = useCallback((s: GameStatus) => setGame(s), []);
   const current = stop >= 0 ? TOUR[stop] : null;
