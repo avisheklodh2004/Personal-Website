@@ -21,7 +21,6 @@ export function TourBoard({ stop, onPlay }: { stop: number; onPlay: (stop: numbe
       mate={played ? MATED_KING : undefined}
       label="Chess puzzle. White has four different checkmates, and each one opens a section of the site."
     >
-      {!played && <MateArrows active={hover} />}
       <AnimatePresence initial={false}>
         {pieces.map((p) => {
           const [row, col] = squareToRowCol(p.square);
@@ -69,51 +68,3 @@ export function TourBoard({ stop, onPlay }: { stop: number; onPlay: (stop: numbe
   );
 }
 
-/** Center of a square in board units (0-8), for the arrow layer. */
-function center(sq: string): [number, number] {
-  const [row, col] = squareToRowCol(sq);
-  return [col + 0.5, row + 0.5];
-}
-
-/** All four mating moves drawn at once; the hovered one stays bright and the rest fade. */
-function MateArrows({ active }: { active: number }) {
-  return (
-    <svg className="mate-arrows" viewBox="0 0 8 8" aria-hidden="true">
-      <defs>
-        {TOUR.map((t) =>
-          t.color ? (
-            <marker key={t.id} id={`head-${t.id}`} viewBox="0 0 4 4" refX="2" refY="2" markerWidth="3" markerHeight="3" orient="auto">
-              <path d="M0,0 L4,2 L0,4 z" fill={t.color} />
-            </marker>
-          ) : null
-        )}
-      </defs>
-      {TOUR.map((t, i) => {
-        if (!t.from) return null;
-        const [x1, y1] = center(t.from);
-        const [x2, y2] = center(t.to);
-        const knight = Math.abs(x2 - x1) + Math.abs(y2 - y1) === 3 && x1 !== x2 && y1 !== y2;
-        // Knight arrows bend: short leg first, like an L.
-        const [cx, cy] = knight ? (Math.abs(y2 - y1) < Math.abs(x2 - x1) ? [x1, y2] : [x2, y1]) : [x1, y1];
-        // Stop short of the target's center so arrowheads that share a square don't overlap.
-        const len = Math.hypot(x2 - cx, y2 - cy);
-        const k = (len - 0.42) / len;
-        const ex = cx + (x2 - cx) * k;
-        const ey = cy + (y2 - cy) * k;
-        return (
-          <path
-            key={t.id}
-            d={knight ? `M${x1},${y1} L${cx},${cy} L${ex},${ey}` : `M${x1},${y1} L${ex},${ey}`}
-            fill="none"
-            stroke={t.color}
-            strokeWidth={0.13}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            markerEnd={`url(#head-${t.id})`}
-            className={`mate-arrow ${active >= 0 && active !== i ? "is-dim" : ""}`}
-          />
-        );
-      })}
-    </svg>
-  );
-}
