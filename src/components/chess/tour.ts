@@ -42,7 +42,6 @@ export interface TourStop {
   from: string;
   to: string;
   piece: string;
-  pattern: string;
   /** Arrow colour for this mate on the puzzle board. */
   color?: string;
   id: string;
@@ -56,7 +55,6 @@ export const TOUR: TourStop[] = [
     from: "",
     to: "",
     piece: "P",
-    pattern: "White to move",
     id: "about",
     label: "About",
     blurb: "Every game starts with one pawn. Mine started in Dhaka and moved to Tempe.",
@@ -66,33 +64,30 @@ export const TOUR: TourStop[] = [
     from: "h6",
     to: "f7",
     piece: "N",
-    pattern: "Smothered mate",
     color: "#7480e8",
     id: "projects",
     label: "Projects",
-    blurb: "The king is boxed in by its own rook and pawns. The builds: FitStack, OutDrobe and ScanTaps.",
+    blurb: "Three builds that jump in unexpected directions: FitStack, OutDrobe and ScanTaps.",
   },
   {
     san: "Bxg7#",
     from: "f6",
     to: "g7",
     piece: "B",
-    pattern: "Bishop mate",
     color: "#3fb565",
     id: "skills",
     label: "Skills",
-    blurb: "The bishop strikes, backed up by the queen. Patch management to Python and computer vision.",
+    blurb: "Long diagonals across the stack, from patch management to Python and computer vision.",
   },
   {
     san: "Rxg8#",
     from: "c8",
     to: "g8",
     piece: "R",
-    pattern: "Back-rank mate",
     color: "#e0a03a",
     id: "experience",
     label: "Experience",
-    blurb: "The pinned rook falls and the knight covers g8. IT work at the Fulton Schools, plus ASU leadership roles.",
+    blurb: "IT work at the Fulton Schools, plus leadership and ambassador roles at ASU.",
   },
 ];
 

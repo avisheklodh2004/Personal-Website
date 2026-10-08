@@ -34,6 +34,11 @@ export function BoardPanel() {
   return (
     <div className="panel">
       <div className="panel__bar">
+        <span className="window-dots" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
         <div className="seg" role="tablist" aria-label="Board mode">
           <button role="tab" aria-selected={mode === "tour"} className="seg__btn" onClick={() => setMode("tour")}>
             Tour
@@ -106,9 +111,7 @@ export function BoardPanel() {
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <p>
-                        <strong className="moves__pattern">{current.pattern}.</strong> {current.blurb}
-                      </p>
+                      <p>{current.blurb}</p>
                       <a className="link" href={`#${current.id}`}>
                         Go to {current.label} <ArrowRight size={14} strokeWidth={1.75} />
                       </a>
