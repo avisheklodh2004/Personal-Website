@@ -46,7 +46,7 @@ export function Projects() {
       <div className="container">
         <SectionHead
           piece="N"
-          move="2. Nf3"
+          move="Nf7#"
           title="Projects"
           lede="Things I've designed and built, from campus infrastructure to hackathon projects."
         />

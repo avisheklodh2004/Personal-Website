@@ -4,7 +4,7 @@ import { ArrowRight, RotateCcw } from "lucide-react";
 import { Glyph } from "./Board";
 import { TourBoard } from "./TourBoard";
 import { ChessGame, type GameStatus } from "./ChessGame";
-import { PLIES, TOUR, pliesForStop } from "./tour";
+import { TOUR } from "./tour";
 
 type Mode = "tour" | "play";
 
@@ -13,33 +13,29 @@ export function BoardPanel() {
   const reduce = useReducedMotion();
   const [mode, setMode] = useState<Mode>("tour");
   const [stop, setStop] = useState(-1);
-  const [ply, setPly] = useState(0);
   const [auto, setAuto] = useState(!reduce);
+  const [shown, setShown] = useState(0);
   const [game, setGame] = useState<GameStatus>({ text: "Your move", thinking: false });
   const [resetKey, setResetKey] = useState(0);
-  const target = pliesForStop(stop);
 
-  // Walk the board one ply at a time toward the selected stop so each move is visible.
-  useEffect(() => {
-    if (ply === target) return;
-    if (reduce) {
-      setPly(target);
-      return;
-    }
-    const t = setTimeout(() => setPly((p) => p + Math.sign(target - p)), ply < target && (ply % 2 === 1) ? 520 : 320);
-    return () => clearTimeout(t);
-  }, [ply, target, reduce]);
-
-  // Autoplay the opening once, until the visitor takes over.
+  // Autoplay each mate once, back to the puzzle in between, until the visitor takes over.
   useEffect(() => {
     if (!auto || mode !== "tour") return;
-    if (stop >= TOUR.length - 1) {
+    if (stop < 0 && shown >= TOUR.length) {
       setAuto(false);
       return;
     }
-    const t = setTimeout(() => setStop((s) => s + 1), stop < 0 ? 900 : 3400);
+    const t = setTimeout(
+      () => {
+        if (stop < 0) {
+          setStop(shown);
+          setShown((n) => n + 1);
+        } else setStop(-1);
+      },
+      stop < 0 ? (shown === 0 ? 1600 : 900) : 3000
+    );
     return () => clearTimeout(t);
-  }, [auto, stop, mode]);
+  }, [auto, stop, shown, mode]);
 
   const choose = (i: number) => {
     setAuto(false);
@@ -71,12 +67,9 @@ export function BoardPanel() {
         {mode === "tour" ? (
           <button
             className="icon-btn"
-            onClick={() => {
-              setAuto(false);
-              setStop(-1);
-            }}
+            onClick={() => choose(-1)}
             aria-label="Reset the board"
-            disabled={stop < 0 && ply === 0}
+            disabled={stop < 0}
           >
             <RotateCcw size={15} strokeWidth={1.75} />
           </button>
@@ -90,7 +83,7 @@ export function BoardPanel() {
       <div className="panel__body">
         <div className="panel__board">
           {mode === "tour" ? (
-            <TourBoard ply={ply} nextStop={stop + 1} onPlay={() => choose(stop + 1)} />
+            <TourBoard stop={stop} onPlay={choose} />
           ) : (
             <ChessGame onStatus={onStatus} resetKey={resetKey} />
           )}
@@ -99,21 +92,18 @@ export function BoardPanel() {
         <div className="panel__side">
           {mode === "tour" ? (
             <>
-              <ol className="moves" aria-label="Opening moves">
+              <ol className="moves" aria-label="Checkmates">
                 {TOUR.map((t, i) => {
-                  const reply = PLIES[t.ply + 1];
                   const active = i === stop;
-                  const played = i <= stop;
                   return (
                     <li key={t.id}>
                       <button
-                        className={`move ${active ? "is-active" : ""} ${played ? "is-played" : ""}`}
-                        onClick={() => choose(i)}
+                        className={`move ${active ? "is-active" : ""}`}
+                        onClick={() => choose(active ? -1 : i)}
                         aria-current={active ? "step" : undefined}
                       >
                         <span className="move__num">{i + 1}.</span>
-                        <span className="move__san">{PLIES[t.ply].san}</span>
-                        <span className="move__san move__san--reply">{reply?.san ?? ""}</span>
+                        <span className="move__san">{t.san}</span>
                         <Glyph piece={t.piece} className="move__glyph" />
                         <span className="move__label">{t.label}</span>
                       </button>
@@ -131,14 +121,16 @@ export function BoardPanel() {
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <p>{current.blurb}</p>
+                      <p>
+                        <strong className="moves__pattern">{current.pattern}.</strong> {current.blurb}
+                      </p>
                       <a className="link" href={`#${current.id}`}>
                         Go to {current.label} <ArrowRight size={14} strokeWidth={1.75} />
                       </a>
                     </motion.div>
                   ) : (
                     <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                      Tap the highlighted pawn, or pick a move, to see what each piece stands for.
+                      White to move. Four pieces, four different checkmates. Tap a glowing piece to see what each one stands for.
                     </motion.p>
                   )}
                 </AnimatePresence>
