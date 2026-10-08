@@ -20,7 +20,7 @@ export function Skills() {
   return (
     <section className="section" id="skills">
       <div className="container">
-        <SectionHead piece="B" move="Bxf6#" title="Skills" lede="What I use day to day in IT and security work, and what I build with." />
+        <SectionHead piece="B" move="Bxg7#" title="Skills" lede="What I use day to day in IT and security work, and what I build with." />
         <Reveal className="skills">
           {groups.map((g) => (
             <div key={g.name} className="skills__group">

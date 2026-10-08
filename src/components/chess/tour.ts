@@ -5,27 +5,36 @@ export interface TourPiece {
 }
 
 /**
- * White to move, and four different pieces each have a mate in one
- * (FEN 7k/7p/4RpQ1/6N1/8/2B5/8/1K6 w). Every mate opens a part of the site.
+ * White to move (FEN 2R3rk/pp4pp/5BQN/8/8/8/PP3PPP/6K1 w). The c8 rook pins
+ * Black's rook to the back rank, so four different pieces each have a mate in one.
  */
 const PUZZLE: [string, string][] = [
+  ["r", "g8"],
   ["k", "h8"],
+  ["p", "a7"],
+  ["p", "b7"],
+  ["p", "g7"],
   ["p", "h7"],
-  ["p", "f6"],
-  ["R", "e6"],
+  ["R", "c8"],
+  ["B", "f6"],
   ["Q", "g6"],
-  ["N", "g5"],
-  ["B", "c3"],
-  ["K", "b1"],
+  ["N", "h6"],
+  ["P", "a2"],
+  ["P", "b2"],
+  ["P", "f2"],
+  ["P", "g2"],
+  ["P", "h2"],
+  ["K", "g1"],
 ];
 
 export const START: TourPiece[] = PUZZLE.map(([piece, square]) => ({ id: `${piece}${square}`, piece, square }));
 
-/** The square of the black king, which every tour move mates. */
+/** The square of the black king, which every tour mate lands on. */
 export const MATED_KING = "h8";
 
 export interface TourStop {
   san: string;
+  /** Empty for the About stop, which shows the puzzle without playing a move. */
   from: string;
   to: string;
   piece: string;
@@ -37,50 +46,60 @@ export interface TourStop {
 
 export const TOUR: TourStop[] = [
   {
+    san: "Start",
+    from: "",
+    to: "",
+    piece: "P",
+    pattern: "White to move",
+    id: "about",
+    label: "About",
+    blurb: "Every game starts with one pawn. Mine started in Dhaka and moved to Tempe.",
+  },
+  {
     san: "Nf7#",
-    from: "g5",
+    from: "h6",
     to: "f7",
     piece: "N",
-    pattern: "Knight mate",
+    pattern: "Smothered mate",
     id: "projects",
     label: "Projects",
-    blurb: "The knight jumps where nothing can touch it. So do these builds: FitStack, OutDrobe and ScanTaps.",
+    blurb: "The king is boxed in by its own rook and pawns. The builds: FitStack, OutDrobe and ScanTaps.",
   },
   {
-    san: "Bxf6#",
-    from: "c3",
-    to: "f6",
+    san: "Bxg7#",
+    from: "f6",
+    to: "g7",
     piece: "B",
-    pattern: "Long-diagonal mate",
+    pattern: "Bishop mate",
     id: "skills",
     label: "Skills",
-    blurb: "One diagonal across the whole board, like the stack: patch management to Python and computer vision.",
+    blurb: "The bishop strikes, backed up by the queen. Patch management to Python and computer vision.",
   },
   {
-    san: "Re8#",
-    from: "e6",
-    to: "e8",
+    san: "Rxg8#",
+    from: "c8",
+    to: "g8",
     piece: "R",
     pattern: "Back-rank mate",
     id: "experience",
     label: "Experience",
-    blurb: "Holding the back rank: IT work at the Fulton Schools, plus leadership and ambassador roles at ASU.",
+    blurb: "The pinned rook falls and the knight covers g8. IT work at the Fulton Schools, plus ASU leadership roles.",
   },
   {
-    san: "Qxh7#",
+    san: "Qxg7#",
     from: "g6",
-    to: "h7",
+    to: "g7",
     piece: "Q",
-    pattern: "Kiss of death",
+    pattern: "Queen mate",
     id: "contact",
     label: "Contact",
-    blurb: "The queen goes right up to the king, backed by the knight. Open to internships and collaborations.",
+    blurb: "The queen lands next to the king, backed up by the bishop. Open to internships and collaborations.",
   },
 ];
 
-/** Piece positions after the mate for `stop` is played, or the puzzle when `stop` is -1. Ids stay stable so pieces animate. */
+/** Piece positions after `stop` is played, or the puzzle when `stop` is -1. Ids stay stable so pieces animate. */
 export function positionAfter(stop: number): TourPiece[] {
-  if (stop < 0) return START;
+  if (stop < 0 || !TOUR[stop].from) return START;
   const { from, to } = TOUR[stop];
   return START.filter((p) => p.square !== to).map((p) => (p.square === from ? { ...p, square: to } : p));
 }
