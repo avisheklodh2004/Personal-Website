@@ -558,6 +558,21 @@ button {
   box-shadow: inset 0 0 0 1px rgba(229, 72, 77, 0.5);
   pointer-events: none;
 }
+.mate-arrows {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+.mate-arrow {
+  opacity: 0.8;
+  transition: opacity 160ms var(--ease);
+}
+.mate-arrow.is-dim {
+  opacity: 0.15;
+}
 .board__coord {
   position: absolute;
   font-family: var(--font-mono);
@@ -726,6 +741,13 @@ button.piece {
   color: var(--ink-tertiary);
   text-shadow: none;
 }
+.move__glyph-wrap {
+  display: grid;
+  place-items: center;
+}
+.move__glyph-wrap[style] .move__glyph.glyph--white {
+  color: inherit;
+}
 .move__label {
   font-size: 13px;
   font-weight: 500;
@@ -800,6 +822,8 @@ button.piece {
   }
   .move__glyph {
     font-size: 18px;
+  }
+  .move__glyph-wrap {
     order: -1;
   }
   .move__label {

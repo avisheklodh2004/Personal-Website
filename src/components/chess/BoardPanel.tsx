@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useCallback, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { Glyph } from "./Board";
 import { TourBoard } from "./TourBoard";
@@ -10,37 +10,12 @@ type Mode = "tour" | "play";
 
 /** Hero widget: the board, a Tour/Play switch, and the move list that doubles as site navigation. */
 export function BoardPanel() {
-  const reduce = useReducedMotion();
   const [mode, setMode] = useState<Mode>("tour");
   const [stop, setStop] = useState(-1);
-  const [auto, setAuto] = useState(!reduce);
-  const [shown, setShown] = useState(0);
   const [game, setGame] = useState<GameStatus>({ text: "Your move", thinking: false });
   const [resetKey, setResetKey] = useState(0);
 
-  // Autoplay each mate once, back to the puzzle in between, until the visitor takes over.
-  useEffect(() => {
-    if (!auto || mode !== "tour") return;
-    if (stop < 0 && shown >= TOUR.length) {
-      setAuto(false);
-      return;
-    }
-    const t = setTimeout(
-      () => {
-        if (stop < 0) {
-          setStop(shown);
-          setShown((n) => n + 1);
-        } else setStop(-1);
-      },
-      stop < 0 ? (shown === 0 ? 1600 : 900) : 3000
-    );
-    return () => clearTimeout(t);
-  }, [auto, stop, shown, mode]);
-
-  const choose = (i: number) => {
-    setAuto(false);
-    setStop(i);
-  };
+  const choose = (i: number) => setStop(i);
 
   const onStatus = useCallback((s: GameStatus) => setGame(s), []);
   const current = stop >= 0 ? TOUR[stop] : null;
@@ -56,10 +31,7 @@ export function BoardPanel() {
             role="tab"
             aria-selected={mode === "play"}
             className="seg__btn"
-            onClick={() => {
-              setAuto(false);
-              setMode("play");
-            }}
+            onClick={() => setMode("play")}
           >
             Play the engine
           </button>
@@ -104,7 +76,9 @@ export function BoardPanel() {
                       >
                         <span className="move__num">{i + 1}.</span>
                         <span className="move__san">{t.san}</span>
-                        <Glyph piece={t.piece} className="move__glyph" />
+                        <span className="move__glyph-wrap" style={t.color ? { color: t.color } : undefined}>
+                          <Glyph piece={t.piece} className="move__glyph" />
+                        </span>
                         <span className="move__label">{t.label}</span>
                       </button>
                     </li>

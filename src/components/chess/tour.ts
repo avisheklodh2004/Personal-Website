@@ -39,6 +39,8 @@ export interface TourStop {
   to: string;
   piece: string;
   pattern: string;
+  /** Arrow colour for this mate on the puzzle board. */
+  color?: string;
   id: string;
   label: string;
   blurb: string;
@@ -61,6 +63,7 @@ export const TOUR: TourStop[] = [
     to: "f7",
     piece: "N",
     pattern: "Smothered mate",
+    color: "#7480e8",
     id: "projects",
     label: "Projects",
     blurb: "The king is boxed in by its own rook and pawns. The builds: FitStack, OutDrobe and ScanTaps.",
@@ -71,6 +74,7 @@ export const TOUR: TourStop[] = [
     to: "g7",
     piece: "B",
     pattern: "Bishop mate",
+    color: "#3fb565",
     id: "skills",
     label: "Skills",
     blurb: "The bishop strikes, backed up by the queen. Patch management to Python and computer vision.",
@@ -81,6 +85,7 @@ export const TOUR: TourStop[] = [
     to: "g8",
     piece: "R",
     pattern: "Back-rank mate",
+    color: "#e0a03a",
     id: "experience",
     label: "Experience",
     blurb: "The pinned rook falls and the knight covers g8. IT work at the Fulton Schools, plus ASU leadership roles.",
@@ -91,6 +96,7 @@ export const TOUR: TourStop[] = [
     to: "g7",
     piece: "Q",
     pattern: "Queen mate",
+    color: "#e5677d",
     id: "contact",
     label: "Contact",
     blurb: "The queen lands next to the king, backed up by the bishop. Open to internships and collaborations.",
