@@ -7,6 +7,7 @@ import scantapsImage from "asset:scantaps.webp";
 const projects = [
   {
     name: "ScanTaps",
+    repo: "https://github.com/ScanTaps/ScanTaps",
     tagline: "Secure lost and found system · Engineering EPICS, ASU",
     description:
       "Led design and development of a hybrid NFC and QR lost-and-found Progressive Web App with ASU SSO and encrypted chat between finders and owners. The prototype supports 1,000+ tags with offline caching and real-time Firebase updates, built with ASU Lost & Found staff to meet accessibility and data-privacy requirements.",
@@ -17,6 +18,7 @@ const projects = [
   },
   {
     name: "OutDrobe",
+    repo: "https://github.com/avisheklodh2004/Outdrobe",
     tagline: "AI-powered personal stylist · Cal Hacks 2025",
     description:
       "A voice-integrated AI stylist that generates personalized outfits, combining speech recognition from Fish Audio with image tagging from Google Cloud Vision and BLIP, in a Three.js dashboard.",
@@ -27,6 +29,7 @@ const projects = [
   },
   {
     name: "FitStack",
+    repo: "https://github.com/IshaanArekar/FitStack",
     tagline: "Real-time gym occupancy tracker · SunHacks 2025",
     description:
       "A privacy-conscious occupancy tracker using camera-based motion detection with no personal data stored, plus an Angular dashboard that recommends the best times to work out.",
@@ -52,7 +55,7 @@ export function Projects() {
             <Reveal key={p.name} delay={i * 0.06} className={`project ${i === 0 ? "project--feature" : ""}`}>
               <a
                 className="project__link"
-                href="https://github.com/avisheklodh2004"
+                href={p.repo}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${p.name} on GitHub`}
