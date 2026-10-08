@@ -1,29 +1,49 @@
-import { initialBoard } from "./engine";
-import { squareName } from "./Board";
-
-/** One half-move. Castling moves two pieces, so a ply is a list of from/to pairs. */
-export interface Ply {
-  san: string;
-  moves: [string, string][];
+export interface TourPiece {
+  id: string;
+  piece: string;
+  square: string;
 }
 
-/** The Italian Game, closed with Qe2. White's five moves each open a part of the site. */
-export const PLIES: Ply[] = [
-  { san: "e4", moves: [["e2", "e4"]] },
-  { san: "e5", moves: [["e7", "e5"]] },
-  { san: "Nf3", moves: [["g1", "f3"]] },
-  { san: "Nc6", moves: [["b8", "c6"]] },
-  { san: "Bc4", moves: [["f1", "c4"]] },
-  { san: "Bc5", moves: [["f8", "c5"]] },
-  { san: "O-O", moves: [["e1", "g1"], ["h1", "f1"]] },
-  { san: "Nf6", moves: [["g8", "f6"]] },
-  { san: "Qe2", moves: [["d1", "e2"]] },
+/**
+ * White to move (FEN 2R3rk/pp1b2pp/3qpB1N/8/3Q4/4P3/PP3PPP/6K1 w). The c8 rook pins
+ * Black's rook to the back rank, so three different pieces each have a mate in one.
+ */
+const PUZZLE: [string, string][] = [
+  ["r", "g8"],
+  ["k", "h8"],
+  ["p", "a7"],
+  ["p", "b7"],
+  ["b", "d7"],
+  ["p", "g7"],
+  ["p", "h7"],
+  ["q", "d6"],
+  ["p", "e6"],
+  ["R", "c8"],
+  ["B", "f6"],
+  ["N", "h6"],
+  ["Q", "d4"],
+  ["P", "e3"],
+  ["P", "a2"],
+  ["P", "b2"],
+  ["P", "f2"],
+  ["P", "g2"],
+  ["P", "h2"],
+  ["K", "g1"],
 ];
 
+export const START: TourPiece[] = PUZZLE.map(([piece, square]) => ({ id: `${piece}${square}`, piece, square }));
+
+/** The square of the black king, which every tour mate lands on. */
+export const MATED_KING = "h8";
+
 export interface TourStop {
-  /** Index into PLIES of white's move for this stop. */
-  ply: number;
+  san: string;
+  /** Empty for the About stop, which shows the puzzle without playing a move. */
+  from: string;
+  to: string;
   piece: string;
+  /** Arrow colour for this mate on the puzzle board. */
+  color?: string;
   id: string;
   label: string;
   blurb: string;
@@ -31,66 +51,49 @@ export interface TourStop {
 
 export const TOUR: TourStop[] = [
   {
-    ply: 0,
+    san: "Start",
+    from: "",
+    to: "",
     piece: "P",
     id: "about",
     label: "About",
     blurb: "Every game starts with one pawn. Mine started in Dhaka and moved to Tempe.",
   },
   {
-    ply: 2,
+    san: "Nf7#",
+    from: "h6",
+    to: "f7",
     piece: "N",
+    color: "#7480e8",
     id: "projects",
     label: "Projects",
     blurb: "Three builds that jump in unexpected directions: FitStack, OutDrobe and ScanTaps.",
   },
   {
-    ply: 4,
+    san: "Bxg7#",
+    from: "f6",
+    to: "g7",
     piece: "B",
+    color: "#3fb565",
     id: "skills",
     label: "Skills",
     blurb: "Long diagonals across the stack, from patch management to Python and computer vision.",
   },
   {
-    ply: 6,
+    san: "Rxg8#",
+    from: "c8",
+    to: "g8",
     piece: "R",
+    color: "#e0a03a",
     id: "experience",
     label: "Experience",
-    blurb: "Castled and steady: IT work at the Fulton Schools, plus leadership and ambassador roles at ASU.",
-  },
-  {
-    ply: 8,
-    piece: "Q",
-    id: "contact",
-    label: "Contact",
-    blurb: "The most flexible piece on the board. Open to internships and collaborations.",
+    blurb: "IT work at the Fulton Schools, plus leadership and ambassador roles at ASU.",
   },
 ];
 
-/** Number of plies on the board once a tour stop has been played (white's move plus black's reply). */
-export function pliesForStop(stop: number) {
-  if (stop < 0) return 0;
-  return Math.min(TOUR[stop].ply + 2, PLIES.length);
-}
-
-export interface TourPiece {
-  id: string;
-  piece: string;
-  square: string;
-}
-
-const START: TourPiece[] = initialBoard.flatMap((row, r) =>
-  row.flatMap((piece, c) => (piece ? [{ id: `${piece}${squareName(r, c)}`, piece, square: squareName(r, c) }] : []))
-);
-
-/** Piece positions after the first `count` plies. Ids are stable so pieces can animate between squares. */
-export function positionAfter(count: number): TourPiece[] {
-  const pieces = START.map((p) => ({ ...p }));
-  for (const ply of PLIES.slice(0, count)) {
-    for (const [from, to] of ply.moves) {
-      const moving = pieces.find((p) => p.square === from);
-      if (moving) moving.square = to;
-    }
-  }
-  return pieces;
+/** Piece positions after `stop` is played, or the puzzle when `stop` is -1. Ids stay stable so pieces animate. */
+export function positionAfter(stop: number): TourPiece[] {
+  if (stop < 0 || !TOUR[stop].from) return START;
+  const { from, to } = TOUR[stop];
+  return START.filter((p) => p.square !== to).map((p) => (p.square === from ? { ...p, square: to } : p));
 }

@@ -58,7 +58,7 @@ export function Contact() {
   return (
     <section className="section" id="contact">
       <div className="container">
-        <SectionHead piece="Q" move="5. Qe2" title="Contact" />
+        <SectionHead piece="Q" move="1-0" title="Contact" />
         <Reveal className="contact">
           <div className="contact__intro">
             <p className="contact__lead">Let's build something together.</p>

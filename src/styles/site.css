@@ -446,17 +446,40 @@ button {
 
 .panel {
   background: var(--surface-1);
-  border: 1px solid var(--hairline);
-  border-radius: var(--radius-xl);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-lg);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4), 0 24px 48px -24px rgba(0, 0, 0, 0.8);
   overflow: hidden;
 }
 .panel__bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 12px;
-  border-bottom: 1px solid var(--hairline);
+  gap: 14px;
+  padding: 10px 12px 10px 16px;
+  background: linear-gradient(var(--surface-3), var(--surface-2));
+  border-bottom: 1px solid var(--hairline-strong);
+}
+.panel__bar > :last-child {
+  margin-left: auto;
+}
+/* macOS-style window controls */
+.window-dots {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+.window-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.35);
+}
+.window-dots span:nth-child(2) {
+  background: #febc2e;
+}
+.window-dots span:nth-child(3) {
+  background: #28c840;
 }
 .panel__body {
   display: grid;
@@ -548,6 +571,14 @@ button {
   inset: 0;
   background: var(--accent-soft);
   box-shadow: inset 0 0 0 1px rgba(94, 106, 210, 0.35);
+  pointer-events: none;
+}
+.board__sq--mate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(229, 72, 77, 0.55) 0%, rgba(229, 72, 77, 0.18) 70%);
+  box-shadow: inset 0 0 0 1px rgba(229, 72, 77, 0.5);
   pointer-events: none;
 }
 .board__coord {
@@ -686,7 +717,7 @@ button.piece {
 .move {
   width: 100%;
   display: grid;
-  grid-template-columns: 20px 34px 30px 18px 1fr;
+  grid-template-columns: 20px 46px 18px 1fr;
   align-items: center;
   gap: 4px;
   padding: 8px;
@@ -710,9 +741,6 @@ button.piece {
 .move__num {
   color: var(--ink-tertiary);
 }
-.move__san--reply {
-  color: var(--ink-tertiary);
-}
 .move__glyph {
   font-size: 15px;
   text-shadow: none;
@@ -720,6 +748,13 @@ button.piece {
 .move__glyph.glyph--white {
   color: var(--ink-tertiary);
   text-shadow: none;
+}
+.move__glyph-wrap {
+  display: grid;
+  place-items: center;
+}
+.move__glyph-wrap[style] .move__glyph.glyph--white {
+  color: inherit;
 }
 .move__label {
   font-size: 13px;
@@ -776,7 +811,7 @@ button.piece {
 @media (max-width: 639px) {
   .moves {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 4px;
   }
   .move {
@@ -786,12 +821,13 @@ button.piece {
     padding: 8px 2px;
     gap: 2px;
   }
-  .move__num,
-  .move__san--reply {
+  .move__num {
     display: none;
   }
   .move__glyph {
     font-size: 18px;
+  }
+  .move__glyph-wrap {
     order: -1;
   }
   .move__label {

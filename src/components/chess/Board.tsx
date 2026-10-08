@@ -35,11 +35,14 @@ export function squareToRowCol(sq: string): [number, number] {
  */
 export function BoardFrame({
   highlight = [],
+  mate,
   renderSquare,
   children,
   label,
 }: {
   highlight?: string[];
+  /** Square of a checkmated king, tinted red. */
+  mate?: string;
   renderSquare?: (row: number, col: number) => ReactNode;
   children?: ReactNode;
   label: string;
@@ -57,7 +60,7 @@ export function BoardFrame({
               key={name}
               className={`board__sq ${light ? "board__sq--light" : "board__sq--dark"} ${
                 highlight.includes(name) ? "board__sq--last" : ""
-              }`}
+              } ${name === mate ? "board__sq--mate" : ""}`}
             >
               {col === 0 && <span className="board__coord board__coord--rank">{8 - row}</span>}
               {row === 7 && <span className="board__coord board__coord--file">{FILES[col]}</span>}

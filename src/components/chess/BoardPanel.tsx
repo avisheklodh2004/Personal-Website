@@ -1,50 +1,32 @@
-import { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, RotateCcw } from "lucide-react";
 import { Glyph } from "./Board";
 import { TourBoard } from "./TourBoard";
 import { ChessGame, type GameStatus } from "./ChessGame";
-import { PLIES, TOUR, pliesForStop } from "./tour";
+import { TOUR } from "./tour";
 
 type Mode = "tour" | "play";
 
 /** Hero widget: the board, a Tour/Play switch, and the move list that doubles as site navigation. */
 export function BoardPanel() {
-  const reduce = useReducedMotion();
   const [mode, setMode] = useState<Mode>("tour");
   const [stop, setStop] = useState(-1);
-  const [ply, setPly] = useState(0);
-  const [auto, setAuto] = useState(!reduce);
   const [game, setGame] = useState<GameStatus>({ text: "Your move", thinking: false });
   const [resetKey, setResetKey] = useState(0);
-  const target = pliesForStop(stop);
 
-  // Walk the board one ply at a time toward the selected stop so each move is visible.
-  useEffect(() => {
-    if (ply === target) return;
-    if (reduce) {
-      setPly(target);
-      return;
-    }
-    const t = setTimeout(() => setPly((p) => p + Math.sign(target - p)), ply < target && (ply % 2 === 1) ? 520 : 320);
-    return () => clearTimeout(t);
-  }, [ply, target, reduce]);
+  const scrollTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  // Autoplay the opening once, until the visitor takes over.
-  useEffect(() => {
-    if (!auto || mode !== "tour") return;
-    if (stop >= TOUR.length - 1) {
-      setAuto(false);
-      return;
-    }
-    const t = setTimeout(() => setStop((s) => s + 1), stop < 0 ? 900 : 3400);
-    return () => clearTimeout(t);
-  }, [auto, stop, mode]);
-
+  // Play the stop, and after a mate give the board a moment before jumping to its section.
   const choose = (i: number) => {
-    setAuto(false);
     setStop(i);
+    clearTimeout(scrollTimer.current);
+    if (i >= 0 && TOUR[i].from) {
+      scrollTimer.current = setTimeout(() => document.getElementById(TOUR[i].id)?.scrollIntoView(), 1400);
+    }
   };
+
+  useEffect(() => () => clearTimeout(scrollTimer.current), []);
 
   const onStatus = useCallback((s: GameStatus) => setGame(s), []);
   const current = stop >= 0 ? TOUR[stop] : null;
@@ -52,6 +34,11 @@ export function BoardPanel() {
   return (
     <div className="panel">
       <div className="panel__bar">
+        <span className="window-dots" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
         <div className="seg" role="tablist" aria-label="Board mode">
           <button role="tab" aria-selected={mode === "tour"} className="seg__btn" onClick={() => setMode("tour")}>
             Tour
@@ -60,10 +47,7 @@ export function BoardPanel() {
             role="tab"
             aria-selected={mode === "play"}
             className="seg__btn"
-            onClick={() => {
-              setAuto(false);
-              setMode("play");
-            }}
+            onClick={() => setMode("play")}
           >
             Play the engine
           </button>
@@ -71,12 +55,9 @@ export function BoardPanel() {
         {mode === "tour" ? (
           <button
             className="icon-btn"
-            onClick={() => {
-              setAuto(false);
-              setStop(-1);
-            }}
+            onClick={() => choose(-1)}
             aria-label="Reset the board"
-            disabled={stop < 0 && ply === 0}
+            disabled={stop < 0}
           >
             <RotateCcw size={15} strokeWidth={1.75} />
           </button>
@@ -90,7 +71,7 @@ export function BoardPanel() {
       <div className="panel__body">
         <div className="panel__board">
           {mode === "tour" ? (
-            <TourBoard ply={ply} nextStop={stop + 1} onPlay={() => choose(stop + 1)} />
+            <TourBoard stop={stop} onPlay={choose} />
           ) : (
             <ChessGame onStatus={onStatus} resetKey={resetKey} />
           )}
@@ -99,22 +80,21 @@ export function BoardPanel() {
         <div className="panel__side">
           {mode === "tour" ? (
             <>
-              <ol className="moves" aria-label="Opening moves">
+              <ol className="moves" aria-label="Checkmates">
                 {TOUR.map((t, i) => {
-                  const reply = PLIES[t.ply + 1];
                   const active = i === stop;
-                  const played = i <= stop;
                   return (
                     <li key={t.id}>
                       <button
-                        className={`move ${active ? "is-active" : ""} ${played ? "is-played" : ""}`}
-                        onClick={() => choose(i)}
+                        className={`move ${active ? "is-active" : ""}`}
+                        onClick={() => choose(active ? -1 : i)}
                         aria-current={active ? "step" : undefined}
                       >
                         <span className="move__num">{i + 1}.</span>
-                        <span className="move__san">{PLIES[t.ply].san}</span>
-                        <span className="move__san move__san--reply">{reply?.san ?? ""}</span>
-                        <Glyph piece={t.piece} className="move__glyph" />
+                        <span className="move__san">{t.san}</span>
+                        <span className="move__glyph-wrap" style={t.color ? { color: t.color } : undefined}>
+                          <Glyph piece={t.piece} className="move__glyph" />
+                        </span>
                         <span className="move__label">{t.label}</span>
                       </button>
                     </li>
@@ -138,7 +118,7 @@ export function BoardPanel() {
                     </motion.div>
                   ) : (
                     <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                      Tap the highlighted pawn, or pick a move, to see what each piece stands for.
+                      White to move. Three pieces, three different checkmates. Tap a glowing piece to see what each one stands for.
                     </motion.p>
                   )}
                 </AnimatePresence>

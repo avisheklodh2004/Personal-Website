@@ -45,7 +45,7 @@ export function Experience() {
   return (
     <section className="section" id="experience">
       <div className="container">
-        <SectionHead piece="R" move="4. O-O" title="Experience" lede="IT, leadership and campus roles, most recent first." />
+        <SectionHead piece="R" move="Rxg8#" title="Experience" lede="IT, leadership and campus roles, most recent first." />
         <ol className="roles">
           {roles.map((r, i) => (
             <Reveal as="li" key={r.title} delay={i * 0.04} className="role">
