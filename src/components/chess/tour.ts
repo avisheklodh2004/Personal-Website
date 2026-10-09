@@ -5,7 +5,7 @@ export interface TourPiece {
 }
 
 /**
- * White to move (FEN 2R3rk/pp1b2pp/3qpB1N/8/3Q4/4P3/PP3PPP/6K1 w). The c8 rook pins
+ * White to move (FEN 2R3rk/pp1b2pp/4pB1N/8/3Q4/4P3/qP3PPP/6K1 w). The c8 rook pins
  * Black's rook to the back rank, so three different pieces each have a mate in one.
  */
 const PUZZLE: [string, string][] = [
@@ -16,14 +16,13 @@ const PUZZLE: [string, string][] = [
   ["b", "d7"],
   ["p", "g7"],
   ["p", "h7"],
-  ["q", "d6"],
+  ["q", "a2"],
   ["p", "e6"],
   ["R", "c8"],
   ["B", "f6"],
   ["N", "h6"],
   ["Q", "d4"],
   ["P", "e3"],
-  ["P", "a2"],
   ["P", "b2"],
   ["P", "f2"],
   ["P", "g2"],
