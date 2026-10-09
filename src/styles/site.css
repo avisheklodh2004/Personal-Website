@@ -631,6 +631,11 @@ button {
   font-size: 9.4cqw;
   will-change: transform;
 }
+/* The chess font sits its glyphs high and slightly left of the em box; nudge them to the square's centre. */
+.piece .glyph,
+.board__btn .glyph {
+  translate: 0.012em 0.055em;
+}
 button.piece {
   border: 0;
   padding: 0;
