@@ -1289,6 +1289,9 @@ button.piece {
 .form__submit {
   align-self: flex-start;
 }
+.form__botcheck {
+  display: none;
+}
 .form__status {
   font-size: 14px;
   color: var(--ink-muted);
