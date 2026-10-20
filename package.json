@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "private": true,
     "dependencies": {
-        "@emailjs/browser": "*",
         "@fontsource-variable/geist": "^5.3.0",
         "@fontsource-variable/geist-mono": "^5.3.0",
         "lucide-react": "^0.487.0",

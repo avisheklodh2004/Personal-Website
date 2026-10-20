@@ -1,17 +1,13 @@
 import { useState, type FormEvent } from "react";
-import emailjs from "@emailjs/browser";
 import { ArrowRight, Github, Linkedin, Mail, MapPin } from "lucide-react";
 import { Reveal, SectionHead } from "./Reveal";
 
 const EMAIL = "alodh2@asu.edu";
 
-// Set these in a .env file to send messages through EmailJS. Without them the
-// form opens the visitor's mail app with the message filled in.
-const EMAILJS = {
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined,
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined,
-  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined,
-};
+// Web3Forms access key. It only lets visitors send messages to the inbox it was
+// created for, so it is safe to ship in the client. Without it the form opens
+// the visitor's mail app with the message filled in.
+const WEB3FORMS_ACCESS_KEY = "";
 
 type State = { kind: "idle" | "sending" | "sent" | "error" | "mailto"; message?: string };
 
@@ -21,9 +17,10 @@ export function Contact() {
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    const { publicKey, serviceId, templateId } = EMAILJS;
+    const data = new FormData(e.currentTarget as HTMLFormElement);
+    if (data.get("botcheck")) return;
 
-    if (!publicKey || !serviceId || !templateId) {
+    if (!WEB3FORMS_ACCESS_KEY) {
       const body = `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`;
       window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
         `Message from ${form.name}`
@@ -34,12 +31,20 @@ export function Contact() {
 
     setState({ kind: "sending" });
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        { from_name: form.name, from_email: form.email, message: form.message, to_email: EMAIL },
-        { publicKey }
-      );
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New message from ${form.name} via avisheklodh.com`,
+          from_name: "avisheklodh.com",
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        }),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || !json.success) throw new Error(json.message);
       setForm({ name: "", email: "", message: "" });
       setState({ kind: "sent", message: "Thanks. Your message is on its way and I'll reply soon." });
     } catch {
@@ -95,6 +100,7 @@ export function Contact() {
           </div>
 
           <form className="form" onSubmit={submit} noValidate={false}>
+            <input type="checkbox" name="botcheck" className="form__botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <div className="form__field">
               <label htmlFor="contact-name">Name</label>
               <input type="text" autoComplete="name" {...field("name")} />
