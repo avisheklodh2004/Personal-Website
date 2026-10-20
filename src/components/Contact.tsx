@@ -7,7 +7,7 @@ const EMAIL = "alodh2@asu.edu";
 // Web3Forms access key. It only lets visitors send messages to the inbox it was
 // created for, so it is safe to ship in the client. Without it the form opens
 // the visitor's mail app with the message filled in.
-const WEB3FORMS_ACCESS_KEY = "";
+const WEB3FORMS_ACCESS_KEY = "72c3e3cb-c5a3-4193-b21a-32e2ba68458d";
 
 type State = { kind: "idle" | "sending" | "sent" | "error" | "mailto"; message?: string };
 
